@@ -3,61 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>恋愛愛着スタイル診断 - 遠距離恋愛編</title>
+    <title>愛着スタイル診断＆リレーション・ガイド</title>
     <style>
         :root {
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --primary: #6366f1;
+            --primary: #4f46e5;
             --secondary: #ec4899;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
             --text-main: #1e293b;
             --text-sub: #64748b;
             --border: #e2e8f0;
+            --accent-light: #f5f7ff;
         }
         body {
             font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
-            background-color: var(--bg-color);
+            background-color: var(--bg);
             color: var(--text-main);
             margin: 0;
             padding: 20px;
+            line-height: 1.8;
             display: flex;
             justify-content: center;
         }
         #app {
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
             background: var(--card-bg);
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 24px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
         .header {
             text-align: center;
             margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
         }
-        .header h1 {
-            font-size: 1.4rem;
-            color: var(--primary);
-            margin: 0;
-        }
-        .header p {
-            font-size: 0.85rem;
-            color: var(--text-sub);
-            margin-top: 0.5rem;
-        }
-        .question-text {
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-        }
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .header h1 { font-size: 1.6rem; color: var(--primary); margin: 0; }
+        .header p { font-size: 0.9rem; color: var(--text-sub); }
+        .question-box { min-height: 100px; margin-bottom: 2rem; }
+        .question-text { font-size: 1.2rem; font-weight: bold; margin-bottom: 1.5rem; }
+        .options { display: flex; flex-direction: column; gap: 12px; }
         button {
-            padding: 16px;
+            padding: 18px;
             border: 1px solid var(--border);
             border-radius: 12px;
             background: white;
@@ -68,59 +56,35 @@
         }
         button:hover {
             border-color: var(--primary);
-            background: #f5f7ff;
+            background: var(--accent-light);
+            transform: translateY(-2px);
         }
-        .result-title {
-            color: var(--secondary);
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid #fce7f3;
-            padding-bottom: 8px;
-        }
-        .result-desc {
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-        .term-ref {
-            font-weight: bold;
-            color: var(--primary);
-            text-decoration: underline;
-        }
+        /* 結果画面のスタイル */
+        .result-section { animation: fadeIn 0.5s ease; }
+        .result-title { color: var(--secondary); font-size: 1.5rem; margin-bottom: 1.5rem; border-left: 5px solid var(--secondary); padding-left: 15px; }
+        .analysis-block { margin-bottom: 2.5rem; }
+        .analysis-block h3 { font-size: 1.1rem; color: var(--primary); margin-bottom: 0.5rem; border-bottom: 1px solid #eef2ff; }
+        .content-text { font-size: 1rem; margin-bottom: 1.5rem; text-align: justify; }
+        .term-ref { font-weight: bold; color: var(--primary); cursor: help; border-bottom: 1px dotted var(--primary); }
         .glossary {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px dashed var(--border);
-            text-align: left;
+            margin-top: 4rem;
+            padding: 2rem;
+            background: #f1f5f9;
+            border-radius: 16px;
         }
-        .glossary h3 {
-            font-size: 1rem;
-            color: var(--text-sub);
-            margin-bottom: 1rem;
-        }
-        .glossary-item {
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-        .glossary-term {
-            font-weight: bold;
-            display: block;
-            color: var(--primary);
-        }
-        .restart-btn {
-            background: var(--text-sub);
-            color: white;
-            text-align: center;
-            width: 100%;
-            margin-top: 1rem;
-        }
+        .glossary h2 { font-size: 1.2rem; margin-top: 0; }
+        .glossary-item { margin-bottom: 1.5rem; font-size: 0.9rem; }
+        .glossary-term { font-weight: bold; color: var(--primary); display: block; }
+        .restart-btn { width: 100%; text-align: center; background: var(--text-sub); color: white; margin-top: 2rem; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
 <div id="app">
     <div class="header">
-        <h1>恋愛愛着スタイル診断</h1>
-        <p>〜過去の恋愛経験から形作られた現在の心理〜</p>
+        <h1>まさくん専用：愛着スタイル診断</h1>
+        <p>遠距離・過去の経験に基づいた心の解析</p>
     </div>
     <div id="content"></div>
 </div>
@@ -128,100 +92,231 @@
 <script>
 const data = {
     start: {
-        text: "今のパートナー、あるいは直近の恋愛において、あなたが最も「苦しい」と感じる衝動はどちらに近いですか？",
+        text: "今のパートナーとの関係において、最も頻繁に感じる「心の反応」はどちらですか？",
         options: [
-            { text: "嫌われたくない、繋がっていないと不安で仕方ない", next: "anxious_step2" },
-            { text: "踏み込まれると逃げたくなる、一人の自由を奪われたくない", next: "avoidant_step2" }
+            { text: "嫌われたくない、繋がっていないと強い不安に襲われる", next: "q_anx_2" },
+            { text: "踏み込まれると息苦しい、距離を置いて自分を守りたい", next: "q_avd_2" }
         ]
     },
-    // 不安ルート
-    anxious_step2: {
-        text: "遠距離恋愛特有の状況で、特にあなたの心を乱すものはどれですか？",
+    // 不安ルート Q2
+    q_anx_2: {
+        text: "遠距離という状況下で、特にあなたの心を乱すトリガーは？",
         options: [
-            { text: "会えない時間に相手が何をしているか、誰といるか想像してしまう", next: "anxious_result_1" },
-            { text: "連絡の頻度や熱量が少しでも減ると、愛情が冷めたのではないかと疑う", next: "anxious_result_2" }
+            { text: "連絡が途絶える、あるいは返信の熱量が減ること", next: "q_anx_3_a" },
+            { text: "相手が自分抜きで楽しそうに過ごしていること", next: "q_anx_3_b" }
         ]
     },
-    // 回避ルート
-    avoidant_step2: {
-        text: "遠距離という距離感において、あなたの本音に近いものはどちらですか？",
+    // 不安ルート Q3
+    q_anx_3_a: {
+        text: "連絡が来ないとき、つい取ってしまう行動は？",
         options: [
-            { text: "会う約束やビデオ通話が「義務」のように感じて重荷になる", next: "avoidant_result_1" },
-            { text: "相手が情緒的に頼ってくると、冷めてしまったり面倒だと感じる", next: "avoidant_result_2" }
+            { text: "返信があるまでスマホを離せず、何度も画面を確認する", next: "r_anx_hyper" },
+            { text: "「もういい」と拗ねたり、相手を試すような言葉を投げる", next: "r_anx_protest" }
         ]
     },
-    // 結果データ
-    results: {
-        anxious_result_1: {
-            title: "不安型：過覚醒アラート状態",
-            desc: "あなたは過去の恋愛で「突然の拒絶」などを経験し、相手の動向に対して常にアンテナを張る（<span class='term-ref'>過覚醒</span>）状態にあります。遠距離では視覚的な確認ができないため、脳が「危険」を察知しやすく、結果として相手を縛るような（<span class='term-ref'>近接模索行動</span>）が強まっています。これはあなたの性格ではなく、心が身につけた防衛戦略です。",
-            glossary: ["過覚醒", "近接模索行動"]
-        },
-        anxious_result_2: {
-            title: "不安型：愛着システム過剰活性化",
-            desc: "連絡の遅れを「愛の喪失」と直結させてしまうのは、あなたの（<span class='term-ref'>内的作業モデル</span>）が「自分は見捨てられる存在だ」という強い不安を学習してしまったからです。遠距離特有の「情報の少なさ」が、この（<span class='term-ref'>過剰活性化戦略</span>）を刺激し、返信を待つ時間を苦痛に変えています。",
-            glossary: ["内的作業モデル", "過剰活性化戦略"]
-        },
-        avoidant_result_1: {
-            title: "回避型：脱活性化による自己防衛",
-            desc: "親密さを「自由の剥奪」と捉えてしまう状態です。遠距離でありながら圧迫感を感じるのは、あなたが（<span class='term-ref'>脱活性化戦略</span>）を用いて自分の感情をシャットダウンすることで、心の平穏を保とうとしているからです。過去の恋愛で、誰かに深く入り込まれて傷ついた経験が（<span class='term-ref'>親密さの回避</span>）を強化している可能性があります。",
-            glossary: ["脱活性化戦略", "親密さの回避"]
-        },
-        avoidant_result_2: {
-            title: "回避型：防衛的軽蔑パターン",
-            desc: "相手の情緒的な依存に対して冷酷になってしまうのは、あなたが自分自身の「弱さ」を（<span class='term-ref'>抑圧</span>）しているためです。相手を「重い」「面倒だ」と低く見積もる（<span class='term-ref'>脱価値化</span>）を行うことで、自分が傷つく可能性のある「深い繋がり」から距離を置いています。これは、かつて自分を守るために必要だった鎧です。",
-            glossary: ["抑圧", "脱価値化"]
-        }
+    q_anx_3_b: {
+        text: "相手の充実した様子を知ったときの感情は？",
+        options: [
+            { text: "「自分は後回しなんだ」と自責し、激しく落ち込む", next: "r_anx_self_blame" },
+            { text: "置いていかれる焦りから、必死に自分も充実をアピールする", next: "r_anx_mask" }
+        ]
     },
-    glossaryData: {
-        "過覚醒": "周囲の些細な変化や刺激に対して、神経が過剰に過敏になっている状態。愛着の不安が強い時に起こりやすい。",
-        "近接模索行動": "愛着対象（パートナー）との物理的・心理的距離を縮めようとする行動。過剰になると束縛や頻繁な連絡確認となる。",
-        "内的作業モデル": "自分自身や他者、人間関係に対して持っている無意識の「思い込み」のテンプレート。",
-        "過剰活性化戦略": "不安を解消するために、怒りや泣きつき、執着などを通じて相手の注意を引こうとする心の動き。",
-        "脱活性化戦略": "親密さによる苦痛を避けるために、あえて感情を鈍麻させたり、相手への関心を意図的に逸らしたりすること。",
-        "親密さの回避": "他者と深く関わること、弱みを見せることに対して、無意識に恐怖や嫌悪感を感じて遠ざけること。",
-        "抑圧": "自分にとって受け入れがたい感情や記憶を、無意識の中に押し込めて意識しないようにすること。",
-        "脱価値化": "相手の価値を不当に低く評価することで、その相手との関係が自分に与える影響力を弱め、自分を守ろうとする心理。"
+    // 回避ルート Q2
+    q_avd_2: {
+        text: "遠距離特有の「ビデオ通話」や「定期連絡」に対してどう感じますか？",
+        options: [
+            { text: "義務のように感じて、自由が奪われている気がする", next: "q_avd_3_a" },
+            { text: "相手の情緒的な甘えや重い話を聞くのが苦痛だ", next: "q_avd_3_b" }
+        ]
+    },
+    // 回避ルート Q3
+    q_avd_3_a: {
+        text: "自由を侵害されていると感じたとき、どう反応しますか？",
+        options: [
+            { text: "未読無視や短文返信で、物理的・心理的な距離を作る", next: "r_avd_deact" },
+            { text: "相手の欠点や嫌なところを探して、冷めようとする", next: "r_avd_deval" }
+        ]
+    },
+    q_avd_3_b: {
+        text: "相手が頼ってきたときのあなたの態度は？",
+        options: [
+            { text: "論理的な正論で返し、感情の共有を拒絶する", next: "r_avd_intellect" },
+            { text: "何を言えばいいか分からず、心を「無」にしてやり過ごす", next: "r_avd_shut" }
+        ]
     }
 };
 
-function render(nodeId) {
+const results = {
+    r_anx_hyper: {
+        title: "不安型：過覚醒アラート状態",
+        analysis: "あなたは現在、相手の反応に対して脳が（<span class='term-ref'>過覚醒</span>）状態にあります。連絡がないことを「拒絶」や「危機」と脳が誤認し、生存本能としての不安が暴走しています。遠距離による情報の欠如が、（<span class='term-ref'>予期不安</span>）を増幅させている状態です。",
+        why: "過去の恋愛で「突然の音信不通」や「裏切り」を経験したことで、あなたの（<span class='term-ref'>内的作業モデル</span>）は『他者はいつか離れるもの』という警戒心を学習してしまいました。そのため、微かな変化も敏感に察知して自分を守ろうとしているのです。",
+        process: "まず『事実（返信がない）』と『解釈（嫌われた）』を分ける（<span class='term-ref'>認知再構成法</span>）を試してください。不安は波のようなもので、15分耐えればピークは過ぎます。五感を使う（<span class='term-ref'>グラウンディング</span>）で、スマホの世界から現実の感覚へ意識を戻しましょう。",
+        comm: "（<span class='term-ref'>アイ・メッセージ</span>）を使いましょう。『返信が遅い！』と責めるのではなく、『連絡がないと少し寂しくなって不安になっちゃう自分がいるんだ』と、あなたの「状態」を共有してください。具体的な「安心のルール」を二人で決めるのも有効です。",
+        glossary: ["過覚醒", "予期不安", "内的作業モデル", "認知再構成法", "グラウンディング", "アイ・メッセージ"]
+    },
+    r_anx_protest: {
+        title: "不安型：抗議行動パターン",
+        analysis: "素直に寂しいと言えず、相手を困らせることで愛情を確認しようとする（<span class='term-ref'>抗議行動</span>）が出ています。これは相手を攻撃したいのではなく、本当はもっと強く繋がっていたいという渇望の裏返しです。",
+        why: "過去、正当な要求が無視された経験があると、人は「強く言わないと伝わらない」と学習します。この（<span class='term-ref'>過剰活性化戦略</span>）は、相手の注意を引くための悲鳴のようなものです。",
+        process: "自分が今「試すようなこと」を言おうとしていることに気づく（<span class='term-ref'>メタ認知</span>）が重要です。怒りの下にあるのは「悲しみ」であることを認め、その悲しみを自分自身で抱きしめてあげてください。",
+        comm: "後悔する前に「今、不安から試すようなことを言いそうになっている」と正直にメタ報告してください。相手を負かすことではなく、二人で（<span class='term-ref'>安全基地</span>）を築くことが目的であることを思い出しましょう。",
+        glossary: ["抗議行動", "過剰活性化戦略", "メタ認知", "安全基地"]
+    },
+    r_anx_self_blame: {
+        title: "不安型：抑うつ的自責",
+        analysis: "相手の行動の理由をすべて自分の価値の低さに結びつける（<span class='term-ref'>自己関連付け</span>）が起きています。遠距離で会えない時間が、そのまま「愛されていない時間」に変換されてしまい、精神的な（<span class='term-ref'>退行</span>）を招いています。",
+        why: "条件付きの愛情を受けてきた経験が影響している可能性があります。相手を（<span class='term-ref'>理想化</span>）し、自分を低く見積もることで、関係の主導権を相手に委ねすぎてしまっている状態です。",
+        process: "自分の価値をパートナーに依存させない（<span class='term-ref'>自律性</span>）の確保が必要です。小さな成功体験を積む（<span class='term-ref'>行動活性化</span>）を行い、自分一人の時間でも幸福感を感じられる活動を優先的にスケジューリングしてください。",
+        comm: "「自分を責めてしまう癖があること」を伝えましょう。ただし、相手にその責任を取らせようとせず、「こう言ってくれると、私の自責モードが止まりやすい」という具体的なサポート依頼に変換して伝えてください。",
+        glossary: ["自己関連付け", "退行", "理想化", "行動活性化", "自律性"]
+    },
+    r_anx_mask: {
+        title: "不安型：偽りの適応",
+        analysis: "物分かりの良い自分を演じる（<span class='term-ref'>偽りの自己</span>）で不安を隠しています。嫌われることを恐れて本音を（<span class='term-ref'>抑圧</span>）しているため、表面上は安定して見えますが、内部では疲弊が蓄積しています。",
+        why: "「素直な自分は受け入れられない」という（<span class='term-ref'>拒絶感受性</span>）の高さが原因です。平和を保つために自分を消すことが習慣化していますが、これは長期的な関係において（<span class='term-ref'>親密さの障害</span>）となります。",
+        process: "小さな「No」や「不満」を自覚する練習をしましょう。あなたが不満を持っても、関係はすぐには壊れません。（<span class='term-ref'>セルフコンパッション</span>）を用いて、ありのままの感情を持つ権利を自分に与えてください。",
+        comm: "（<span class='term-ref'>アサーティブ・コミュニケーション</span>）を使いましょう。相手を尊重しつつ「実はこういう時、こう思っていたんだ」と少しずつ本音を小出しにすることで、相手もあなたを深く理解するチャンスを得られます。",
+        glossary: ["偽りの自己", "抑圧", "拒絶感受性", "セルフコンパッション", "アサーティブ・コミュニケーション"]
+    },
+    r_avd_deact: {
+        title: "回避型：脱活性化による自己防衛",
+        analysis: "親密さが深まるほど「侵入される」という恐怖を感じ、無意識に感情のスイッチを切る（<span class='term-ref'>脱活性化戦略</span>）が働いています。遠距離の距離感でさえ重く感じるのは、心の（<span class='term-ref'>境界線</span>）が非常に敏感になっている証拠です。",
+        why: "幼少期や過去の恋愛で、自律性を尊重されなかった記憶が（<span class='term-ref'>回避性愛着</span>）を強化しています。「他人を頼ることは弱さであり危険だ」という信念が根底にあります。",
+        process: "逃げ出したくなったとき、それは相手が嫌いなのではなく「脳が休息を求めている」のだと捉えてください。完全に遮断する前に、5分だけ（<span class='term-ref'>マインドフルネス</span>）を行い、自分の恐怖の正体を見つめる時間を作ります。",
+        comm: "「今、少し一人の時間が必要なモードに入った」とだけ伝えてください。何も言わずに消えるのではなく、戻ってくる時間を添えて伝える（<span class='term-ref'>タイムアウト</span>）の手法を使うことで、相手の不安を煽らずに自分の自由を確保できます。",
+        glossary: ["脱活性化戦略", "境界線", "回避性愛着", "マインドフルネス", "タイムアウト"]
+    },
+    r_avd_deval: {
+        title: "回避型：脱価値化パターン",
+        analysis: "相手を「重い」「依存的だ」と低く評価する（<span class='term-ref'>脱価値化</span>）ことで、自分が傷つくのを防いでいます。相手を嫌いになることで、執着という（<span class='term-ref'>脆弱性</span>）から逃れようとしている状態です。",
+        why: "深入りして傷つくことを避けるための（<span class='term-ref'>防衛機制</span>）です。相手を否定することで、相対的に自分の優位性と安全性を確保しようとしていますが、これは孤独を深める結果を招きます。",
+        process: "相手の欠点ばかりが目につくとき、それは自分の「愛着システム」がシャッターを下ろしているサインだと認識してください。（<span class='term-ref'>投影</span>）を疑い、自分が許せない相手の弱さが、実は自分の隠したい弱さではないか自問しましょう。",
+        comm: "批判的な言葉が出る前に一呼吸置いてください。「今は少し余裕がなくて、ネガティブに捉えやすい時期なんだ」と、自分のバイアスについて共有しましょう。相手への感謝をあえて言葉にする（<span class='term-ref'>感謝のワーク</span>）を日常に組み込んでください。",
+        glossary: ["脱価値化", "脆弱性", "防衛機制", "投影", "感謝のワーク"]
+    },
+    r_avd_intellect: {
+        title: "回避型：知的化による情緒拒絶",
+        analysis: "感情的なやり取りを避け、論理や正論に逃げ込む（<span class='term-ref'>知的化</span>）が起きています。相手の涙や訴えを「非合理的だ」と切り捨てることで、自分の心が揺さぶられるのを防いでいます。",
+        why: "感情を出すことを「恥」や「コントロール不能な恐怖」と感じている可能性があります。感情を言語化する（<span class='term-ref'>情動的調整</span>）が苦手なため、思考の世界に閉じこもっているのです。",
+        process: "正解を出す必要はありません。ただ相手の感情のそばに居る練習をしましょう。胸のあたりに感じる「モヤモヤ」を言葉にせず、ただ感じてみる（<span class='term-ref'>フォーカシング</span>）という技法が有効です。",
+        comm: "「どう反応していいか分からず、理屈で考えてしまう癖がある」と説明してください。その上で「今はただ聞くことしかできないかもしれないけれど、あなたの隣にいたいと思っている」という意思表示だけは行いましょう。",
+        glossary: ["知的化", "情動的調整", "フォーカシング"]
+    },
+    r_avd_shut: {
+        title: "回避型：情緒的シャットダウン",
+        analysis: "ストレスが閾値を超え、心が「フリーズ」しています。これは（<span class='term-ref'>解離的防衛</span>）の一種で、何も感じない、何を言えばいいか分からない状態です。相手の期待に応えられない罪悪感からさらに心を閉ざす悪循環です。",
+        why: "過去に「過度な期待」に晒され続けたことで、心が省エネモードを学習しました。相手を拒絶しているのではなく、自分を守るために全システムをシャットダウンせざるを得ない状況です。",
+        process: "「今は何も感じなくて当然だ」と自分を許してください。無理に愛情を搾り出そうとせず、まずは睡眠や食事、運動などで（<span class='term-ref'>セルフケア</span>）を行い、神経系のバランスを整えることが最優先です。",
+        comm: "「今、心がフリーズしてしまって言葉が出てこないんだ。あなたを嫌いなわけじゃないけれど、少し休ませてほしい」と短いメッセージで伝えてください。沈黙という（<span class='term-ref'>受動攻撃</span>）にならないよう、意思表示だけは残します。",
+        glossary: ["解離的防衛", "セルフケア", "受動攻撃"]
+    }
+};
+
+const glossaryTerms = {
+    "過覚醒": "不安や恐怖により自律神経が過剰に興奮し、常に警戒態勢にある状態。",
+    "予期不安": "まだ起きていない未来のネガティブな出来事に対して、強い不安を感じること。",
+    "内的作業モデル": "心の中にある「自分や他者との関わり方」のテンプレート、または脚本。",
+    "認知再構成法": "出来事に対するネガティブな解釈を、より現実的で柔軟な視点に修正する技法。",
+    "グラウンディング": "不安に飲み込まれた時、五感（視覚、触覚など）を使って意識を「今この瞬間」に戻す手法。",
+    "アイ・メッセージ": "「私は〜と感じる」と、自分を主語にして感情を伝えるコミュニケーション法。",
+    "抗議行動": "愛情を確認するために、あえて相手を困らせたり突き放したりする間接的な行動。",
+    "過剰活性化戦略": "不安を解消するために、相手に過度にしがみついたり執着したりする心の動き。",
+    "メタ認知": "自分の思考や感情を、客観的に一段高いところから観察すること。",
+    "安全基地": "そこに戻れば安心でき、再び勇気を持って外の世界へ向かえるような信頼関係の拠点。",
+    "自己関連付け": "自分に関係のない他者の行動や出来事を、「自分のせいだ」と結びつけてしまう認知の歪み。",
+    "退行": "強いストレスにより、心理的な発達段階が以前の状態（子供のような反応）に戻ること。",
+    "理想化": "相手の欠点を無視し、過剰に素晴らしい存在だと思い込むこと。",
+    "行動活性化": "気分が乗らなくてもあえて活動を増やすことで、脳にポジティブな刺激を与える手法。",
+    "自律性": "自分の行動や感情を、他人に依存せず自分でコントロールできている感覚。",
+    "偽りの自己": "他人の期待に応えようとしすぎて、本来の自分を抑圧して演じている姿。",
+    "抑圧": "受け入れがたい感情や欲求を、無意識の中に押し込めて意識しないようにすること。",
+    "拒絶感受性": "相手からの些細な反応を「拒絶」と捉え、過剰に傷ついてしまう心の傾向。",
+    "セルフコンパッション": "自分自身の弱さや苦しみを、親しい友人を思いやるように優しく受け入れること。",
+    "アサーティブ・コミュニケーション": "自分も相手も大切にしながら、誠実に、対等に自分の意見を伝える自己表現。",
+    "脱活性化戦略": "親密さによる苦痛を避けるために、感情を麻痺させたり距離を置いたりする心の動き。",
+    "境界線": "自分と他人の心理的な「しきり」。これが脆いと依存しやすく、硬すぎると孤立する。",
+    "回避性愛着": "親密になることを避け、独立性を過剰に重視することで自分を守ろうとする愛着の型。",
+    "マインドフルネス": "「今、この瞬間」の体験に評価を下さず、ただありのままに意識を向ける練習。",
+    "タイムアウト": "感情が爆発しそうな時、意図的にその場を離れて冷静さを取り戻す時間を設けること。",
+    "脱価値化": "相手の価値を否定し低く見積もることで、その相手から受ける影響を最小化しようとする心理。",
+    "脆弱性": "自分が傷つく可能性。これを見せる（開示する）ことが、本当の信頼関係の鍵となる。",
+    "防衛機制": "受け入れがたい不安や苦痛から心を守るために、無意識に働く心理的な自己防衛反応。",
+    "投影": "自分が持っている認めがたい感情を、相手の性質であるかのように思い込むこと。",
+    "感謝のワーク": "日常の小さな感謝を書き出すことで、脳のネガティブバイアスを修正する練習。",
+    "知的化": "感情を理屈で分析することで、直接的な心の痛みから逃れようとする防衛機制。",
+    "情動的調整": "沸き起こった強い感情を、自分なりの方法でなだめ、コントロールすること。",
+    "フォーカシング": "自分の体の中に漠然と感じる「言葉にならない感覚（フェルトセンス）」に注意を向け、対話する技法。",
+    "解離的防衛": "あまりに辛い現実や感情から、意識を切り離して「他人事」のように感じること。",
+    "セルフケア": "自分自身の心身を維持するために行う、休息や栄養、楽しみなどの活動全般。",
+    "受動攻撃": "無視やわざと遅れるなど、間接的な方法で怒りや不満を表現すること。"
+};
+
+function renderNode(nodeId) {
     const content = document.getElementById('content');
     
-    // 結果の判定
-    if (data.results[nodeId]) {
-        const res = data.results[nodeId];
-        let html = `<div class="result-card">
-            <h2 class="result-title">${res.title}</h2>
-            <div class="result-desc">${res.desc}</div>
-            <button class="restart-btn" onclick="render('start')">診断をやり直す</button>
-            <div class="glossary">
-                <h3>解説：心理学用語集</h3>`;
+    if (results[nodeId]) {
+        const res = results[nodeId];
+        let html = `
+            <div class="result-section">
+                <h2 class="result-title">${res.title}</h2>
+                
+                <div class="analysis-block">
+                    <h3>① 現状どういう心かの分析結果</h3>
+                    <div class="content-text">${res.analysis}</div>
+                </div>
+
+                <div class="analysis-block">
+                    <h3>② それはどうしてそうなってるか</h3>
+                    <div class="content-text">${res.why}</div>
+                </div>
+
+                <div class="analysis-block">
+                    <h3>③ それをどう自分の中で処理するか</h3>
+                    <div class="content-text">${res.process}</div>
+                </div>
+
+                <div class="analysis-block">
+                    <h3>④ それをどう相手に伝えるか</h3>
+                    <div class="content-text">${res.comm}</div>
+                </div>
+
+                <div class="analysis-block" style="text-align: center; border-top: 1px solid var(--border); padding-top: 2rem;">
+                    <p><strong>りゅうとはずっと変わらずまさくんと一緒にいると決めてます。</strong></p>
+                </div>
+
+                <button class="restart-btn" onclick="renderNode('start')">診断をやり直す</button>
+
+                <div class="glossary">
+                    <h2>📚 心理学用語辞典</h2>`;
         
         res.glossary.forEach(term => {
-            html += `<div class="glossary-item">
-                <span class="glossary-term">${term}</span>
-                ${data.glossaryData[term]}
-            </div>`;
+            html += `
+                <div class="glossary-item">
+                    <span class="glossary-term">${term}</span>
+                    ${glossaryTerms[term]}
+                </div>`;
         });
         
         html += `</div></div>`;
         content.innerHTML = html;
+        window.scrollTo(0, 0);
         return;
     }
 
-    // 質問の表示
     const node = data[nodeId];
-    let html = `<div class="question-text">${node.text}</div><div class="options">`;
-    node.options.forEach(opt => {
-        html += `<button onclick="render('${opt.next}')">${opt.text}</button>`;
-    });
-    html += `</div>`;
-    content.innerHTML = html;
+    content.innerHTML = `
+        <div class="question-box">
+            <p class="question-text">${node.text}</p>
+        </div>
+        <div class="options">
+            ${node.options.map(opt => `<button onclick="renderNode('${opt.next}')">${opt.text}</button>`).join('')}
+        </div>
+    `;
+    window.scrollTo(0, 0);
 }
 
-// 初期実行
-render('start');
+renderNode('start');
 </script>
 
 </body>
