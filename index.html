@@ -1,511 +1,228 @@
-  <!DOCTYPE html>
-  <html lang="ja">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>愛着スタイル セルフチェック - まさくん専用</title>
-      <style>
-          :root {
-              --bg-color: #f0f4f8;
-              --card-bg: #ffffff;
-              --primary-color: #4f46e5;
-              --accent-color: #ec4899;
-              --text-color: #1f2937;
-              --gray-text: #6b7280;
-              --success-color: #10b981;
-          }
-          body {
-              font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-              background-color: var(--bg-color);
-              color: var(--text-color);
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              min-height: 100vh;
-              margin: 0;
-              padding: 20px;
-          }
-          #app-container {
-              background: var(--card-bg);
-              padding: 2.5rem 2rem;
-              border-radius: 20px;
-              box-shadow: 0 15px 35px rgba(0,0,0,0.07);
-              max-width: 600px;
-              width: 100%;
-              text-align: center;
-              border-top: 5px solid var(--primary-color);
-          }
-          .special-header {
-              font-size: 0.9rem;
-              color: var(--primary-color);
-              font-weight: bold;
-              margin-bottom: 0.5rem;
-              letter-spacing: 0.1em;
-          }
-          h1 {
-              font-size: 1.6rem;
-              margin-top: 0;
-              margin-bottom: 2rem;
-              color: #111827;
-          }
-          .question {
-              font-size: 1.15rem;
-              margin-bottom: 2.5rem;
-              line-height: 1.6;
-              color: #374151;
-          }
-          .options {
-              display: flex;
-              flex-direction: column;
-              gap: 12px;
-          }
-          button {
-              padding: 14px 20px;
-              border: 1px solid #e5e7eb;
-              border-radius: 12px;
-              background-color: white;
-              color: var(--text-color);
-              font-size: 1rem;
-              font-weight: 500;
-              cursor: pointer;
-              transition: all 0.2s ease;
-              text-align: left;
-              position: relative;
-              padding-left: 50px;
-          }
-          button::before {
-              content: 'Q';
-              position: absolute;
-              left: 15px;
-              top: 50%;
-              transform: translateY(-50%);
-              background-color: #e0e7ff;
-              color: var(--primary-color);
-              width: 28px;
-              height: 28px;
-              border-radius: 50%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              font-size: 0.8rem;
-              font-weight: bold;
-          }
-          button:hover {
-              background-color: #f9fafb;
-              border-color: var(--primary-color);
-              transform: translateY(-2px);
-          }
-          button:active { transform: scale(0.98); }
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>恋愛愛着スタイル診断 - 遠距離恋愛編</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --border: #e2e8f0;
+        }
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        #app {
+            max-width: 600px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .header h1 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin: 0;
+        }
+        .header p {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin-top: 0.5rem;
+        }
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        button {
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+        button:hover {
+            border-color: var(--primary);
+            background: #f5f7ff;
+        }
+        .result-title {
+            color: var(--secondary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #fce7f3;
+            padding-bottom: 8px;
+        }
+        .result-desc {
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        .term-ref {
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: underline;
+        }
+        .glossary {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px dashed var(--border);
+            text-align: left;
+        }
+        .glossary h3 {
+            font-size: 1rem;
+            color: var(--text-sub);
+            margin-bottom: 1rem;
+        }
+        .glossary-item {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        .glossary-term {
+            font-weight: bold;
+            display: block;
+            color: var(--primary);
+        }
+        .restart-btn {
+            background: var(--text-sub);
+            color: white;
+            text-align: center;
+            width: 100%;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
 
-          .result-card {
-              text-align: left;
-              animation: fadeIn 0.6s ease-in;
-          }
-          .result-card h1 {
-              color: var(--accent-color);
-              border-bottom: 2px solid #fbcfe8;
-              padding-bottom: 10px;
-              margin-bottom: 1.5rem;
-          }
-          .result-body {
-              line-height: 1.9;
-              color: #4b5563;
-              font-size: 1rem;
-          }
-          .result-body p {
-              margin-bottom: 1rem;
-          }
+<div id="app">
+    <div class="header">
+        <h1>恋愛愛着スタイル診断</h1>
+        <p>〜過去の恋愛経験から形作られた現在の心理〜</p>
+    </div>
+    <div id="content"></div>
+</div>
 
-          .term {
-              font-weight: bold;
-              color: var(--accent-color);
-              background: #fdf2f8;
-              padding: 2px 6px;
-              border-radius: 4px;
-              border: 1px solid #fbcfe8;
-          }
+<script>
+const data = {
+    start: {
+        text: "今のパートナー、あるいは直近の恋愛において、あなたが最も「苦しい」と感じる衝動はどちらに近いですか？",
+        options: [
+            { text: "嫌われたくない、繋がっていないと不安で仕方ない", next: "anxious_step2" },
+            { text: "踏み込まれると逃げたくなる、一人の自由を奪われたくない", next: "avoidant_step2" }
+        ]
+    },
+    // 不安ルート
+    anxious_step2: {
+        text: "遠距離恋愛特有の状況で、特にあなたの心を乱すものはどれですか？",
+        options: [
+            { text: "会えない時間に相手が何をしているか、誰といるか想像してしまう", next: "anxious_result_1" },
+            { text: "連絡の頻度や熱量が少しでも減ると、愛情が冷めたのではないかと疑う", next: "anxious_result_2" }
+        ]
+    },
+    // 回避ルート
+    avoidant_step2: {
+        text: "遠距離という距離感において、あなたの本音に近いものはどちらですか？",
+        options: [
+            { text: "会う約束やビデオ通話が「義務」のように感じて重荷になる", next: "avoidant_result_1" },
+            { text: "相手が情緒的に頼ってくると、冷めてしまったり面倒だと感じる", next: "avoidant_result_2" }
+        ]
+    },
+    // 結果データ
+    results: {
+        anxious_result_1: {
+            title: "不安型：過覚醒アラート状態",
+            desc: "あなたは過去の恋愛で「突然の拒絶」などを経験し、相手の動向に対して常にアンテナを張る（<span class='term-ref'>過覚醒</span>）状態にあります。遠距離では視覚的な確認ができないため、脳が「危険」を察知しやすく、結果として相手を縛るような（<span class='term-ref'>近接模索行動</span>）が強まっています。これはあなたの性格ではなく、心が身につけた防衛戦略です。",
+            glossary: ["過覚醒", "近接模索行動"]
+        },
+        anxious_result_2: {
+            title: "不安型：愛着システム過剰活性化",
+            desc: "連絡の遅れを「愛の喪失」と直結させてしまうのは、あなたの（<span class='term-ref'>内的作業モデル</span>）が「自分は見捨てられる存在だ」という強い不安を学習してしまったからです。遠距離特有の「情報の少なさ」が、この（<span class='term-ref'>過剰活性化戦略</span>）を刺激し、返信を待つ時間を苦痛に変えています。",
+            glossary: ["内的作業モデル", "過剰活性化戦略"]
+        },
+        avoidant_result_1: {
+            title: "回避型：脱活性化による自己防衛",
+            desc: "親密さを「自由の剥奪」と捉えてしまう状態です。遠距離でありながら圧迫感を感じるのは、あなたが（<span class='term-ref'>脱活性化戦略</span>）を用いて自分の感情をシャットダウンすることで、心の平穏を保とうとしているからです。過去の恋愛で、誰かに深く入り込まれて傷ついた経験が（<span class='term-ref'>親密さの回避</span>）を強化している可能性があります。",
+            glossary: ["脱活性化戦略", "親密さの回避"]
+        },
+        avoidant_result_2: {
+            title: "回避型：防衛的軽蔑パターン",
+            desc: "相手の情緒的な依存に対して冷酷になってしまうのは、あなたが自分自身の「弱さ」を（<span class='term-ref'>抑圧</span>）しているためです。相手を「重い」「面倒だ」と低く見積もる（<span class='term-ref'>脱価値化</span>）を行うことで、自分が傷つく可能性のある「深い繋がり」から距離を置いています。これは、かつて自分を守るために必要だった鎧です。",
+            glossary: ["抑圧", "脱価値化"]
+        }
+    },
+    glossaryData: {
+        "過覚醒": "周囲の些細な変化や刺激に対して、神経が過剰に過敏になっている状態。愛着の不安が強い時に起こりやすい。",
+        "近接模索行動": "愛着対象（パートナー）との物理的・心理的距離を縮めようとする行動。過剰になると束縛や頻繁な連絡確認となる。",
+        "内的作業モデル": "自分自身や他者、人間関係に対して持っている無意識の「思い込み」のテンプレート。",
+        "過剰活性化戦略": "不安を解消するために、怒りや泣きつき、執着などを通じて相手の注意を引こうとする心の動き。",
+        "脱活性化戦略": "親密さによる苦痛を避けるために、あえて感情を鈍麻させたり、相手への関心を意図的に逸らしたりすること。",
+        "親密さの回避": "他者と深く関わること、弱みを見せることに対して、無意識に恐怖や嫌悪感を感じて遠ざけること。",
+        "抑圧": "自分にとって受け入れがたい感情や記憶を、無意識の中に押し込めて意識しないようにすること。",
+        "脱価値化": "相手の価値を不当に低く評価することで、その相手との関係が自分に与える影響力を弱め、自分を守ろうとする心理。"
+    }
+};
 
-          .action-box {
-              background: #f0fdf4;
-              border-left: 4px solid var(--success-color);
-              padding: 1rem;
-              margin: 1.5rem 0;
-              border-radius: 8px;
-          }
-          .action-box strong {
-              color: var(--success-color);
-              display: block;
-              margin-bottom: 0.5rem;
-              font-size: 1.05rem;
-          }
+function render(nodeId) {
+    const content = document.getElementById('content');
+    
+    // 結果の判定
+    if (data.results[nodeId]) {
+        const res = data.results[nodeId];
+        let html = `<div class="result-card">
+            <h2 class="result-title">${res.title}</h2>
+            <div class="result-desc">${res.desc}</div>
+            <button class="restart-btn" onclick="render('start')">診断をやり直す</button>
+            <div class="glossary">
+                <h3>解説：心理学用語集</h3>`;
+        
+        res.glossary.forEach(term => {
+            html += `<div class="glossary-item">
+                <span class="glossary-term">${term}</span>
+                ${data.glossaryData[term]}
+            </div>`;
+        });
+        
+        html += `</div></div>`;
+        content.innerHTML = html;
+        return;
+    }
 
-          .mechanism-box {
-              background: #eff6ff;
-              border-left: 4px solid var(--primary-color);
-              padding: 1rem;
-              margin: 1.5rem 0;
-              border-radius: 8px;
-              font-size: 0.95rem;
-          }
-          .mechanism-box strong {
-              color: var(--primary-color);
-              display: block;
-              margin-bottom: 0.5rem;
-          }
+    // 質問の表示
+    const node = data[nodeId];
+    let html = `<div class="question-text">${node.text}</div><div class="options">`;
+    node.options.forEach(opt => {
+        html += `<button onclick="render('${opt.next}')">${opt.text}</button>`;
+    });
+    html += `</div>`;
+    content.innerHTML = html;
+}
 
-          .restart-btn {
-              margin-top: 2.5rem;
-              background-color: var(--gray-text);
-              color: white;
-              width: 100%;
-              text-align: center;
-              padding-left: 20px;
-              border: none;
-          }
-          .restart-btn::before {
-              content: '↺';
-              background: none;
-              color: white;
-              font-size: 1.2rem;
-          }
-          .restart-btn:hover {
-              background-color: #4b5563;
-              border-color: #4b5563;
-          }
+// 初期実行
+render('start');
+</script>
 
-          @keyframes fadeIn {
-              from { opacity: 0; transform: translateY(15px); }
-              to { opacity: 1; transform: translateY(0); }
-          }
-
-          @media (max-width: 480px) {
-              #app-container {
-                  padding: 2rem 1.5rem;
-              }
-              h1 {
-                  font-size: 1.4rem;
-              }
-              .question {
-                  font-size: 1.05rem;
-              }
-          }
-      </style>
-  </head>
-  <body>
-
-  <div id="app-container">
-      <div class="special-header">まさくん専用</div>
-      <div id="quiz-content"></div>
-  </div>
-
-  <script>
-      /*
-       * 愛着理論（Attachment Theory）に基づいたセルフヘルプツール
-       *
-       * 【理論的背景】
-       * ボウルビィ（Bowlby）とエインズワース（Ainsworth）による愛着理論に基づき、
-       * 成人の愛着スタイルは以下の4タイプに分類されます：
-       *
-       * 1. 安定型（Secure）
-       * 2. 不安型（Anxious-Preoccupied）← 過剰活性化戦略
-       * 3. 回避型（Dismissive-Avoidant）← 脱活性化戦略
-       * 4. 恐れ回避型（Fearful-Avoidant）
-       *
-       * 愛着スタイルは固定的なものではなく、
-       * 安全な関係体験や心理療法によって変化可能です（Earned Secure Attachment）
-       */
-
-      const flowData = {
-          start: {
-              text: "今のあなたの心の状態は、どちらに近いですか？",
-              options: [
-                  {
-                      text: "相手に嫌われたかも、離れていくかもと不安",
-                      next: "anxious_1"
-                  },
-                  {
-                      text: "干渉されるのが苦しい、一人になりたい、冷めてしまった",
-                      next: "avoidant_1"
-                  }
-              ]
-          },
-
-          // ========================================
-          // 不安型愛着スタイル（Anxious-Preoccupied）ルート
-          // ========================================
-          anxious_1: {
-              text: "具体的に、どのような不安を感じていますか？",
-              options: [
-                  { text: "連絡がつかない、返信が遅い", next: "anxious_contact" },
-                  { text: "飲みに行ってから連絡がない", next: "anxious_drinking" },
-                  { text: "誰といるかわからない、浮気しているかもしれない", next: "anxious_jealousy" }
-              ]
-          },
-
-          anxious_contact: {
-              text: `
-                  <div class="mechanism-box">
-                      <strong>🧠 何が起きているか：</strong>
-                      今、あなたの中で<span class='term'>愛着システム（Attachment
-  System）</span>が強く活性化しています。
-                      これは<span class='term'>不安型愛着スタイル（Anxious-Preoccupied Attachment）</span>の特徴である
-                      <span class='term'>過剰活性化戦略（Hyperactivating Strategies）</span>と呼ばれる反応パターンです。
-                      具体的には、相手からの反応が得られないと「見捨てられるかもしれない」という不安が高まり、
-                      より強く接近しようとする行動が引き起こされます。
-                  </div>
-
-                  <p>
-                      この反応の根底には<span class='term'>内的作業モデル（Internal Working Models）</span>と呼ばれる、
-                      幼少期から形成された「他者は信頼できない」「自分は愛される価値がない」という信念があります。
-                      しかし重要なのは、<strong>事実と解釈は別物</strong>だということです。                             
-                  </p>                                                                                                  
-                                                                                                                        
-                  <div class="action-box">                                                                              
-                      <strong>✅ 今すぐできる対処法：</strong>                                                          
-                      <ol style="margin: 0.5rem 0 0 1.2rem; padding: 0;">                                               
-                          <li><span class='term'>グラウンディング（Grounding）</span>：5-4-3-2-1法で今この瞬間に意識を戻
-  す（目に見える5つのもの、耳に聞こえる4つの音、触れる3つの感触、2つの匂い、1つの味）</li>                              
-                          <li><span class='term'>認知再構成（Cognitive Restructuring）</span>：「他にどんな理由が考えら 
-  れる？」と自問する（仕事で忙しい、スマホを見ていない、疲れて寝ている等）</li>                                         
-                          <li><span class='term'>セルフコンパッション（Self-Compassion）</span>：「不安を感じるのは自然
-  なこと。私は十分頑張っている」と自分に優しい言葉をかける</li>                                                         
-                          <li>24時間ルール：衝動的に連絡する前に1日待つ（感情の強度は時間とともに必ず低下します）</li>
-                      </ol>                                                                                             
-                  </div>                                                                                                
-                                                                                                                        
-                  <p style="margin-top: 1rem; font-size: 0.95rem; color: #6b7280;">                                     
-                      💡 長期的な目標は、<span class='term'>獲得安定型愛着（Earned Secure                               
-  Attachment）</span>への移行です。                                                                                     
-                      これは、複数の<span class='term'>安全基地（Secure
-  Base）</span>を持つこと（趣味、友人、コミュニティなど）によって達成できます。                                         
-                      相手だけに依存しない生活が、実は関係をより安定させます。
-                  </p>                                                                                                  
-              `,  
-              isFinal: true                                                                                             
-          },                                                                                                            
-   
-          anxious_drinking: {                                                                                           
-              text: `
-                  <div class="mechanism-box">                                                                           
-                      <strong>🧠 何が起きているか：</strong>                                                            
-                      相手が自分以外のことを楽しんでいる状況で、                                                        
-                      <span class='term'>愛着システム（Attachment System）</span>が脅威を感知し、警報を鳴らしています。 
-                      これは<span class='term'>不安型愛着スタイル</span>に特徴的な                                      
-                      <span class='term'>近接探索行動（Proximity-seeking Behavior）</span>を引き起こします。            
-                      「相手とつながっていたい」という強い欲求が、相手の自律性を脅威と感じさせています。                
-                  </div>                                                                                                
-                                                                                                                        
-                  <p>                                                                                                   
-                      実はこの不安の裏には、「相手をコントロールしたい」という隠れた欲求があります。
-                      しかし心理学研究によれば、健全な関係は<span                                                       
-  class='term'>相互依存（Interdependence）</span>に基づいており、                                                       
-                      お互いの<span class='term'>自律性（Autonomy）</span>を尊重することが不可欠です。                  
-                  </p>                                                                                                  
-                                                                                                                        
-                  <div class="action-box">                                                                              
-                      <strong>✅ 今すぐできる対処法：</strong>                                                          
-                      <ol style="margin: 0.5rem 0 0 1.2rem; padding: 0;">                                               
-                          <li><span class='term'>自己分化（Differentiation of                                           
-  Self）</span>の練習：「相手の楽しみ」と「自分の価値」は完全に独立していると認識する</li>                              
-                          <li><span class='term'>感情ラベリング（Affect                                                 
-  Labeling）</span>：「今、私は見捨てられ不安を感じている」と言語化することで、感情の強度を下げる</li>                  
-                          <li><span class='term'>行動活性化（Behavioral
-  Activation）</span>：自分も楽しい活動をする（映画、運動、友人との会話など）</li>                                      
-                  
-  <li>事前の安心メッセージ：「楽しんできてね。あとで話を聞かせて」と伝えることで、双方の不安を軽減</li>                 
-                      </ol>
-                  </div>                                                                                                
-                                                                                                                        
-                  <p style="margin-top: 1rem; font-size: 0.95rem; color: #6b7280;">                                     
-                      💡 パラドックスですが、相手の自由を認めるほど、あなた自身の<span                                  
-  class='term'>自律性</span>も高まります。                                                                              
-                      「相手がいなくても私は大丈夫」と思えるほど、関係は安定します。
-                      これが<span class='term'>安定型愛着スタイル（Secure Attachment）</span>への移行プロセスです。     
-                  </p>                                                                                                  
-              `,                                                                                                        
-              isFinal: true                                                                                             
-          },      
-                                                                                                                        
-          anxious_jealousy: {                                                                                           
-              text: `
-                  <div class="mechanism-box">                                                                           
-                      <strong>🧠 何が起きているか：</strong>                                                            
-                      強い嫉妬や疑いは、<span class='term'>過覚醒（Hypervigilance）</span>状態にあることを示しています。
-                      脳は「証拠がない＝安全」ではなく「証拠がない＝まだ見つけていないだけ」と解釈し、                  
-                      <span class='term'>確証バイアス（Confirmation Bias）</span>に陥っています。                       
-                      つまり、疑いを裏付ける情報だけを選択的に探してしまうのです。                                      
-                  </div>                                                                                                
-                                                                                                                        
-                  <p>                                                                                                   
-                      事実に基づかない想像で自分を苦しめるのは、                                                        
-                      <span class='term'>破局的思考（Catastrophizing）</span>という<span                                
-  class='term'>認知の歪み（Cognitive Distortions）</span>です。                                                         
-                      この状態は一時的に「確認欲求」を満たすかもしれませんが、                                          
-                      長期的には関係を破壊する最大の要因となります。                                                    
-                  </p>                                                                                                  
-                                                                                                                        
-                  <div class="action-box">                                                                              
-                      <strong>✅ 今すぐできる対処法：</strong>                                                          
-                      <ol style="margin: 0.5rem 0 0 1.2rem; padding: 0;">                                               
-                          <li><span class='term'>思考記録（Thought                                                      
-  Record）</span>：「浮気している」という考えの根拠を紙に書き出す。ほとんどが推測であることに気づくはず</li>            
-                          <li><span class='term'>証拠の両面検討（Evidence                                               
-  Examination）</span>：「相手が誠実だった証拠」も同じ数だけリストアップする</li>                                       
-                          <li><span 
-  class='term'>セルフコンパッション・ワーク</span>：毎日「私は愛される価値がある」理由を3つ書く</li>                    
-                          <li><span class='term'>段階的曝露（Graduated
-  Exposure）</span>：小さなことから相手を信じる体験を積み重ねる</li>                                                    
-                      </ol>
-                  </div>                                                                                                
-                                                                                                                        
-                  <p style="margin-top: 1rem; font-size: 0.95rem; color: #6b7280;">                                     
-                      💡 嫉妬の根本原因は「相手の行動」ではなく「自分の内的作業モデル」です。                           
-                      もしこのパターンが繰り返されるなら、                                                              
-                      <span class='term'>愛着に焦点を当てた心理療法（Attachment-Based                                   
-  Therapy）</span>を受けることも選択肢です。                                                                            
-                      <span class='term'>安定型愛着スタイル</span>は、大人になってからでも獲得可能です。                
-                  </p>                                                                                                  
-              `,                                                                                                        
-              isFinal: true                                                                                             
-          },                                                                                                            
-                                                                                                                        
-          // ========================================
-          // 回避型愛着スタイル（Dismissive-Avoidant）ルート                                                            
-          // ========================================                                                                   
-          avoidant_1: {                                                                                                 
-              text: "相手との距離が近くなりすぎて、自由を奪われている感覚がありますか？",                               
-              options: [                                                                                                
-                  {                                                                                                     
-                      text: "はい、逃げ出したい・シャットダウンしたい",                                                 
-                      next: "avoidant_safe"                                                                             
-                  },                                                                                                    
-                  {                                                                                                     
-                      text: "いいえ、単に相手にイライラして軽蔑してしまう",                                             
-                      next: "avoidant_devalue"                                                                          
-                  }                                                                                                     
-              ]                                                                                                         
-          },                                                                                                            
-                  
-          avoidant_safe: {                                                                                              
-              text: `
-                  <div class="mechanism-box">                                                                           
-                      <strong>🧠 何が起きているか：</strong>
-                      今あなたが経験しているのは、<span class='term'>回避型愛着スタイル（Dismissive-Avoidant            
-  Attachment）</span>の                                                                                                 
-                      典型的な<span class='term'>脱活性化戦略（Deactivating Strategies）</span>です。                   
-                      親密さが一定の閾値を超えると、「自己喪失の危機」を感じ、                                          
-                      脳の<span class='term'>闘争・逃走反応（Fight-or-Flight Response）</span>が発動します。            
-                      これは意識的な選択ではなく、自動的な防衛反応です。                                                
-                  </div>                                                                                                
-                                                                                                                        
-                  <p>                                                                                                   
-                      シャットダウン（感情遮断）は短期的には安心をもたらしますが、                                      
-                      長期的には関係の断絶と孤独感を深めます。                                                          
-                      重要なのは、<strong>「完全に逃げる」か「耐える」かの二択ではない</strong>ということです。         
-                      第三の選択肢があります。                                                                          
-                  </p>                                                                                                  
-                                                                                                                        
-                  <div class="action-box">                                                                              
-                      <strong>✅ 今すぐできる対処法：</strong>
-                      <ol style="margin: 0.5rem 0 0 1.2rem; padding: 0;">                                               
-                          <li><span class='term'>境界線の設定（Boundary                                                 
-  Setting）</span>：「10分（または1時間）だけ一人の時間が必要」と具体的に伝える</li>                                    
-                          <li><span class='term'>感情の言語化（Emotional                                                
-  Expression）</span>：「あなたが悪いわけじゃない。今は少し圧倒されている」と正直に伝える</li>                          
-                          <li><span class='term'>段階的親密化（Graduated
-  Intimacy）</span>：完全に閉じるのではなく、「安全な距離」を探る</li>                                                  
-                          <li>リターンの約束：「30分後に戻ってくる」と明確に伝える（相手の愛着不安を軽減する）</li>
-                      </ol>                                                                                             
-                  </div>
-                                                                                                                        
-                  <p style="margin-top: 1rem; font-size: 0.95rem; color: #6b7280;">                                     
-                      💡 鍵は<span class='term'>感情調整スキル（Emotion Regulation Skills）</span>を高めることです。    
-                      「親密さ＝脅威」という<span class='term'>内的作業モデル</span>を                                  
-                      「親密さ＝安全な場合もある」に更新するには時間がかかります。                                      
-                      しかし、小さな成功体験（安全に親密になれた瞬間）を積み重ねることで可能です。                      
-                  </p>                                                                                                  
-              `,                                                                                                        
-              isFinal: true                                                                                             
-          },                                                                                                            
-                  
-          avoidant_devalue: {                                                                                           
-              text: `
-                  <div class="mechanism-box">                                                                           
-                      <strong>🧠 何が起きているか：</strong>                                                            
-                      相手の欠点ばかりが目につくのは、親密さを避けるための                                              
-                      <span class='term'>防衛機制（Defense Mechanisms）</span>が働いているためです。                    
-                      特に<span class='term'>理想化と脱価値化（Idealization and Devaluation）</span>のサイクルは、      
-                      <span class='term'>回避型愛着スタイル</span>の特徴的なパターンです。                              
-                      「この人は自分にふさわしくない」と思うことで、親密さへの不安から逃れようとしています。            
-                  </div>                                                                                                
-                                                                                                                        
-                  <p>                                                                                                   
-                      <span class='term'>軽蔑（Contempt）</span>は、心理学者ジョン・ゴットマンの研究で
-                      「関係を破壊する4つの騎士」の中で最も有害なパターンとされています。                               
-                                                                                                                        
-  これは相手の問題ではなく、<strong>あなたの愛着システムが自動的にシャッターを下ろしている</strong>サインです。         
-                  </p>                                                                                                  
-                                                                                                                        
-                  <div class="action-box">                                                                              
-                      <strong>✅ 今すぐできる対処法：</strong>                                                          
-                      <ol style="margin: 0.5rem 0 0 1.2rem; padding: 0;">                                               
-                          <li><span                                                                                     
-  class='term'>メタ認知（Metacognition）</span>：「今、私の防衛機制が作動している」と客観的に気づく</li>                
-                          <li><span class='term'>感謝の練習（Gratitude                                                  
-  Practice）</span>：毎日、相手の「小さな良いところ」を1つ見つける</li>                                                 
-                          <li><span class='term'>完璧主義の修正（Perfectionism
-  Adjustment）</span>：「完璧な人間は存在しない。私も含めて」と受け入れる</li>                                          
-                          <li><span class='term'>段階的自己開示（Graduated
-  Self-Disclosure）</span>：「実は、親密になることが怖い」と相手に伝えてみる</li>                                       
-                      </ol>
-                  </div>                                                                                                
-                                                                                                                        
-                  <p style="margin-top: 1rem; font-size: 0.95rem; color: #6b7280;">                                     
-                      💡 軽蔑は、親密さへの恐怖を隠すマスクです。                                                       
-                      もし複数の関係で同じパターンを繰り返しているなら、                                                
-                      <span class='term'>愛着スタイルの再構築</span>が必要かもしれません。                              
-                      <span class='term'>愛着に基づく心理療法</span>や<span class='term'>感情焦点化療法（Emotion-Focused
-   Therapy）</span>によって、                                                                                           
-                      より安定した愛着スタイルへと変化することは可能です。                                              
-                  </p>                                                                                                  
-              `,                                                                                                        
-              isFinal: true                                                                                             
-          }                                                                                                             
-      };                                                                                                                
-                                                                                                                        
-      /**                                                                                                               
-       * ノードをレンダリングする関数
-       * @param {string} nodeId - 表示するノードのID                                                                    
-       */                                                                                                               
-      function renderNode(nodeId) {                                                                                     
-          const node = flowData[nodeId];                                                                                
-          const container = document.getElementById('quiz-content');                                                    
-                                                                                                                        
-          if (node.isFinal) {                                                                                           
-              container.innerHTML = `                                                                                   
-                  <div class="result-card">                                                                             
-                      <h1>💭 愛着スタイルからの理解</h1>                                                                
-                      <div class="result-body">${node.text}</div>                                                       
-                      <button class="restart-btn" onclick="renderNode('start')">最初に戻る</button>                     
-                  </div>                                                                                                
-              `;                                                                                                        
-          } else {                                                                                                      
-              container.innerHTML = `                                                                                   
-                  <h1>心の状態チェック</h1>                                                                             
-                  <p class="question">${node.text}</p>                                                                  
-                  <div class="options">                                                                                 
-                      ${node.options.map(opt =>                                                                         
-                          `<button onclick="renderNode('${opt.next}')">${opt.text}</button>`                            
-                      ).join('')}                                                                                       
-                  </div>                                                                                                
-              `;                                                                                                        
-          }                                                                                                             
-                                                                                                                        
-          window.scrollTo(0, 0);                                                                                        
-      }                                                                                                                 
-                                                                                                                        
-      renderNode('start');                                                                                              
-  </script>
-                                                                                                                        
-  </body>         
-  </html>
+</body>
+</html>
