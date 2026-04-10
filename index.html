@@ -2,195 +2,89 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>愛着スタイル深層診断</title>
-
+<title>感情整理とアサーティブコミュニケーション</title>
 <style>
-body {
-    font-family: sans-serif;
-    background:#f8fafc;
-    padding:20px;
-}
-#app {
-    max-width:800px;
-    margin:auto;
-    background:#fff;
-    padding:20px;
-    border-radius:16px;
-}
-button {
-    width:100%;
-    padding:14px;
-    margin-top:10px;
-    cursor:pointer;
-}
-.block {
-    margin-top:20px;
-    padding:15px;
-    background:#f1f5f9;
-    border-radius:10px;
-}
-.cta-btn {
-    background:#4f46e5;
-    color:#fff;
-}
+body { font-family: Arial, sans-serif; line-height: 1.8; padding: 20px; }
+h2 { margin-top: 40px; }
+.section { margin-bottom: 30px; }
+.cta { display: inline-block; margin-top: 15px; padding: 10px 20px; background-color: #007BFF; color: #fff; text-decoration: none; border-radius: 5px; }
+.box { border: 1px solid #ddd; padding: 15px; border-radius: 8px; }
 </style>
 </head>
-
 <body>
-<div id="app">
 
-<div id="quiz-view">
-<h2>診断スタート</h2>
-<div id="question-container"></div>
+<h1>感情整理とコミュニケーション整理</h1>
+
+<div class="section box">
+<h2>① 現状どういう心かの分析結果</h2>
+<p>
+現在の状態は「不安」と「期待」が同時に存在している状態です。相手に対して好意や関係を継続したい気持ちがある一方で、「また離れていくのではないか」「自分だけが頑張っているのではないか」という予期不安が強く働いています。
+</p>
+<p>
+この状態は心理学的には「不安型愛着」に近く、相手との距離や反応に敏感になりやすく、関係の安定性を外部（相手の行動）で確認しようとする傾向があります。その結果、相手の些細な言動を過剰に解釈し、感情が上下しやすくなっています。
+</p>
+<a href="#assertive" class="cta">アサーティブコミュニケーションを見る</a>
 </div>
 
-<div id="result-view" style="display:none;"></div>
+<div class="section box">
+<h2>② それはどうしてそうなってるか</h2>
+<p>
+この状態の背景には、過去の恋愛経験や「拒絶されるかもしれない」という記憶が影響しています。人は過去に似た状況に直面すると、同じ結果を避けようとして防衛的な思考を取ります。
+</p>
+<p>
+また、「関係を失いたくない」という欲求が強いほど、相手の行動に対するコントロール欲求や確認行動（不安解消のための行動）が強くなります。しかしこれが逆に相手にプレッシャーとして伝わることもあります。
+</p>
+<p>
+つまり、現在の感情は「相手が原因」というよりも、「過去の経験 × 現在の期待」の掛け合わせによって生まれている状態です。
+</p>
+<a href="#assertive" class="cta">アサーティブコミュニケーションを見る</a>
+</div>
 
-<div id="assertive-view" style="display:none;">
+<div class="section box">
+<h2>③ それをどう自分の中で処理するか</h2>
+<p>
+まず重要なのは、「事実」と「解釈」を分けることです。例えば「返信が遅い」という事実に対して、「嫌われたかもしれない」というのは解釈です。この2つを混同すると感情が増幅されます。
+</p>
+<p>
+次に、「感情の即時処理をしない」ことが重要です。不安や怒りが出た瞬間に行動すると、長期的に後悔する選択になりやすいため、一定時間（例：30分）置いてから判断することで、冷静な意思決定が可能になります。
+</p>
+<p>
+さらに、「自分の基準（クライテリア）」に立ち返ることで、感情ではなく判断軸で相手を見ることができます。これにより、過度な依存や不安のループから抜けやすくなります。
+</p>
+<a href="#assertive" class="cta">アサーティブコミュニケーションを見る</a>
+</div>
+
+<div class="section box">
+<h2>④ それをどう相手に伝えるか</h2>
+<p>
+相手に伝える際は、「感情をぶつける」のではなく、「自分の状態を共有する」ことが重要です。そのためにはアサーティブコミュニケーションが有効です。
+</p>
+<p>
+例えば、「なんで返信遅いの？」ではなく、「返信が遅いと少し不安になる自分がいる」といった形で、主語を自分に置いた伝え方にすることで、相手に責任を押し付けずに関係を維持できます。
+</p>
+<p>
+また、「どうしてほしいか」まで具体的に伝えることで、相手も行動しやすくなります。曖昧な不満ではなく、具体的なリクエストに変換することが関係改善の鍵になります。
+</p>
+<a href="#assertive" class="cta">アサーティブコミュニケーションを見る</a>
+</div>
+
+<div class="section box" id="assertive">
 <h2>アサーティブコミュニケーションとは</h2>
+<p>
+アサーティブコミュニケーションとは、自分の意見や感情を率直に伝えつつ、相手の立場や感情も尊重するコミュニケーション手法です。攻撃的でも受動的でもなく、「対等な関係」を前提としています。
+</p>
 
-<div class="block">
-相手を尊重しながら自分の気持ちを正直に伝える方法です。攻撃でも我慢でもない「対等な伝え方」です。
-</div>
-
-<div class="block">
-<h3>5STEP</h3>
+<h3>やり方（5ステップ）</h3>
 <ol>
-<li>事実をそのまま伝える</li>
-<li>自分の感情を伝える</li>
-<li>どうしてほしいか言う</li>
-<li>そうなるメリットを伝える</li>
-<li>相手の意見を聞く</li>
+<li>事実を客観的に伝える（評価や解釈を入れない）</li>
+<li>自分の感情を伝える（Iメッセージ）</li>
+<li>その背景にある理由を説明する</li>
+<li>具体的な要望を伝える</li>
+<li>相手の意見や反応を受け取る</li>
 </ol>
+
+<p>りゅうとはずっと変わらずまさくんと一緒にいると決めてます。</p>
 </div>
-
-<div class="block">
-例：<br>
-「返信がなくて寂しかった。忙しい時は一言ほしい。そうしてくれると安心できる」
-</div>
-
-<div style="margin-top:40px;text-align:center;font-weight:bold;">
-りゅうとはずっと変わらずまさくんと一緒にいると決めてます。
-</div>
-
-<button class="cta-btn" onclick="showView('result-view')">戻る</button>
-</div>
-
-</div>
-
-<script>
-const flow = {
-start: {
-text: "どんな時に不安になる？",
-options: [
-{ text:"返信が遅い", next:"anx" },
-{ text:"距離を取りたくなる", next:"avd" },
-{ text:"嫌われた気がする", next:"fear" }
-]
-},
-
-anx: {
-text: "どう行動する？",
-options: [
-{ text:"追いLINE", next:"res_anx" }
-]
-},
-
-avd: {
-text: "どうする？",
-options: [
-{ text:"距離を置く", next:"res_avd" }
-]
-},
-
-fear: {
-text: "どうなる？",
-options: [
-{ text:"混乱する", next:"res_fear" }
-]
-}
-};
-
-const results = {
-res_anx: {
-title:"不安型",
-analysis:"相手との繋がりを失うことへの強い恐怖があり、確認行動が増える状態。",
-why:"過去の経験や不安感が強く、安心材料を外に求めやすい。",
-self:"不安は一時的なものと理解し、自分の感情を落ち着かせる。",
-comm:"「寂しい」と素直に伝える。"
-},
-res_avd: {
-title:"回避型",
-analysis:"距離を取ることで安心しようとする傾向。",
-why:"他人に踏み込まれることへの警戒。",
-self:"距離を取る自分を否定しない。",
-comm:"「少し一人時間がほしい」と伝える。"
-},
-res_fear: {
-title:"恐れ型",
-analysis:"近づきたいと離れたいが同時に存在。",
-why:"過去の矛盾した経験。",
-self:"感情を整理する時間を持つ。",
-comm:"状態を正直に伝える。"
-}
-};
-
-function showView(id){
-document.getElementById("quiz-view").style.display="none";
-document.getElementById("result-view").style.display="none";
-document.getElementById("assertive-view").style.display="none";
-
-document.getElementById(id).style.display="block";
-}
-
-function renderQuestion(id){
-const q = flow[id];
-const container = document.getElementById("question-container");
-
-let html = "<h3>"+q.text+"</h3>";
-
-q.options.forEach(o=>{
-html += `<button onclick="goNext('${o.next}')">${o.text}</button>`;
-});
-
-container.innerHTML = html;
-}
-
-function goNext(next){
-if(results[next]){
-renderResult(next);
-}else{
-renderQuestion(next);
-}
-}
-
-function renderResult(id){
-const r = results[id];
-const container = document.getElementById("result-view");
-
-container.innerHTML = `
-<h2>${r.title}</h2>
-
-<div class="block"><b>現状</b><br>${r.analysis}</div>
-<div class="block"><b>原因</b><br>${r.why}</div>
-<div class="block"><b>対処</b><br>${r.self}</div>
-<div class="block"><b>伝え方</b><br>${r.comm}</div>
-
-<button class="cta-btn" onclick="showView('assertive-view')">アサーティブを見る</button>
-
-<div style="margin-top:40px;text-align:center;font-weight:bold;">
-りゅうとはずっと変わらずまさくんと一緒にいると決めてます。
-</div>
-
-<button onclick="location.reload()">最初から</button>
-`;
-
-showView("result-view");
-}
-
-renderQuestion("start");
-</script>
 
 </body>
 </html>
