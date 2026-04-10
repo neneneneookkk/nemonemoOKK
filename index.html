@@ -1,325 +1,195 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>愛着スタイル深層診断 - まさくん専用完全版</title>
-    <style>
-        :root {
-            --primary: #4f46e5;
-            --primary-light: #f0f1ff;
-            --secondary: #f43f5e;
-            --secondary-light: #fff1f2;
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text-main: #1e293b;
-            --text-sub: #64748b;
-            --border: #e2e8f0;
-            --accent: #10b981;
-        }
-        body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            margin: 0;
-            padding: 20px;
-            line-height: 1.8;
-            display: flex;
-            justify-content: center;
-        }
-        #app {
-            max-width: 850px;
-            width: 100%;
-            background: var(--card);
-            padding: 2rem;
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        }
-        .header { text-align: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
-        .header h1 { font-size: 1.4rem; color: var(--primary); margin: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>愛着スタイル深層診断</title>
 
-        .question-box { animation: fadeIn 0.4s ease; }
-        .question-text { font-size: 1.15rem; font-weight: bold; margin-bottom: 1.5rem; color: var(--text-main); }
-        .options { display: flex; flex-direction: column; gap: 10px; }
-        
-        button {
-            padding: 15px 20px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: white;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-            color: var(--text-main);
-        }
-        button:hover { border-color: var(--primary); background: var(--primary-light); transform: translateX(5px); }
-
-        .result-view, .assertive-view { animation: fadeIn 0.5s ease; }
-        .style-header {
-            background: var(--primary-light);
-            color: var(--primary);
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-        .result-title { color: var(--secondary); font-size: 1.5rem; margin-bottom: 1.5rem; border-left: 6px solid var(--secondary); padding-left: 15px; }
-        
-        .block { margin-bottom: 1.5rem; padding: 1.5rem; border-radius: 16px; background: #fafafa; border: 1px solid #eee; }
-        .block h3 { margin-top: 0; font-size: 1rem; color: var(--primary); border-bottom: 1px solid #e5e7eb; padding-bottom: 8px; margin-bottom: 12px; }
-        .term { font-weight: bold; color: var(--primary); background: #eff2ff; padding: 2px 4px; border-radius: 4px; }
-
-        .cta-btn {
-            display: block;
-            width: 100%;
-            text-align: center;
-            background: var(--primary);
-            color: white;
-            padding: 18px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: bold;
-            margin: 25px 0;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        .cta-btn:hover { background: #4338ca; }
-
-        .imessage-box { background: var(--secondary-light); border-radius: 12px; padding: 15px; margin-top: 10px; border: 1px solid #ffe4e6; }
-        .imessage-bad { color: #b91c1c; font-size: 0.85rem; text-decoration: line-through; display: block; }
-        .imessage-good { color: #065f46; font-weight: bold; display: block; margin-top: 5px; }
-
-        .footer-msg {
-            margin-top: 3rem;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: var(--text-main);
-            padding: 25px;
-            border: 2px solid var(--secondary);
-            border-radius: 20px;
-            background: #fffafa;
-            line-height: 1.6;
-        }
-
-        .glossary { margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed var(--border); }
-        .glossary-item { margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-sub); }
-        .glossary-term { font-weight: bold; color: var(--primary); }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
+<style>
+body {
+    font-family: sans-serif;
+    background:#f8fafc;
+    padding:20px;
+}
+#app {
+    max-width:800px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:16px;
+}
+button {
+    width:100%;
+    padding:14px;
+    margin-top:10px;
+    cursor:pointer;
+}
+.block {
+    margin-top:20px;
+    padding:15px;
+    background:#f1f5f9;
+    border-radius:10px;
+}
+.cta-btn {
+    background:#4f46e5;
+    color:#fff;
+}
+</style>
 </head>
+
 <body>
-
 <div id="app">
-    <div id="quiz-view">
-        <div class="header">
-            <h1>心の愛着スタイル診断</h1>
-            <p>まさくんの深層心理を分析し、最適なコミュニケーションを探る</p>
-        </div>
-        <div id="question-container"></div>
-    </div>
 
-    <div id="result-view" class="result-view" style="display: none;"></div>
+<div id="quiz-view">
+<h2>診断スタート</h2>
+<div id="question-container"></div>
+</div>
 
-    <div id="assertive-view" class="assertive-view" style="display: none;">
-        <h2 class="result-title">アサーティブコミュニケーション解説</h2>
-        <div class="block">
-            <h3>アサーティブとは？</h3>
-            <p>相手を尊重しながら、自分の気持ちや意見を誠実に、対等に、率直に伝えるコミュニケーション手法です。我慢して飲み込むのでもなく、攻撃的にぶつけるのでもない「黄金のバランス」を目指します。</p>
-        </div>
-        <div class="block">
-            <h3>実践 5ステップ (DESC法)</h3>
-            <ol style="padding-left: 20px;">
-                <li><strong>Describe（描写）:</strong> 自分の解釈を入れず、客観的な事実だけを伝える。「連絡が1日なかった」</li>
-                <li><strong>Express（表現）:</strong> その事実に対して「私は〜と感じた」と主観を伝える。「私は寂しく感じた」</li>
-                <li><strong>Specify（提案）:</strong> 具体的にどうしてほしいか、1つだけ提案する。「忙しい時はスタンプを1つ送ってほしい」</li>
-                <li><strong>Consequences（結果）:</strong> そうしてくれたら、どんな良い変化があるか伝える。「そうしてくれたら、私は安心して過ごせる」</li>
-                <li><strong>Listen（傾聴）:</strong> 相手の言い分や事情もセットで聞き、二人の着地点を見つける。</li>
-            </ol>
-        </div>
-        <div class="block">
-            <h3>Iメッセージの具体例</h3>
-            <div class="imessage-box">
-                <span class="imessage-bad">Youメッセージ：なんで返信してくれないの？</span>
-                <span class="imessage-good">Iメッセージ：返信がないと、私は大切にされていない気がして寂しいんだ。</span>
-            </div>
-            <div class="imessage-box">
-                <span class="imessage-bad">Youメッセージ：わがまますぎるよ！</span>
-                <span class="imessage-good">Iメッセージ：急に予定が変わると、私は少し困惑して不安になっちゃうな。</span>
-            </div>
-        </div>
-        <button class="cta-btn" onclick="showView('result-view')">診断結果に戻る</button>
-    </div>
+<div id="result-view" style="display:none;"></div>
+
+<div id="assertive-view" style="display:none;">
+<h2>アサーティブコミュニケーションとは</h2>
+
+<div class="block">
+相手を尊重しながら自分の気持ちを正直に伝える方法です。攻撃でも我慢でもない「対等な伝え方」です。
+</div>
+
+<div class="block">
+<h3>5STEP</h3>
+<ol>
+<li>事実をそのまま伝える</li>
+<li>自分の感情を伝える</li>
+<li>どうしてほしいか言う</li>
+<li>そうなるメリットを伝える</li>
+<li>相手の意見を聞く</li>
+</ol>
+</div>
+
+<div class="block">
+例：<br>
+「返信がなくて寂しかった。忙しい時は一言ほしい。そうしてくれると安心できる」
+</div>
+
+<div style="margin-top:40px;text-align:center;font-weight:bold;">
+りゅうとはずっと変わらずまさくんと一緒にいると決めてます。
+</div>
+
+<button class="cta-btn" onclick="showView('result-view')">戻る</button>
+</div>
+
 </div>
 
 <script>
-// 診断フローの定義
 const flow = {
-    start: {
-        text: "遠距離という状況で、今あなたが最も「心のざわつき」を感じるのはどの瞬間ですか？",
-        options: [
-            { text: "1. 相手の反応が遅く、繋がりが切れたように感じる時", next: "q_anx" },
-            { text: "2. 相手に過度に依存されていると感じ、重荷になる時", next: "q_avd" },
-            { text: "3. 相手の些細な言動で「嫌われたかも」と怖くなる時", next: "q_fear" },
-            { text: "4. 「良い自分でいなきゃ」と自分を律するのに疲れた時", next: "q_perf" },
-            { text: "5. 孤独感に襲われ、自分の価値を見失いそうな時", next: "q_self" },
-            { text: "6. 感情のアップダウンが激しく、自分が信じられない時", next: "q_emotion" }
-        ]
-    },
-    q_anx: {
-        text: "その不安を感じた時、反射的に取ってしまう行動はどれに近いですか？",
-        options: [
-            { text: "何度もスマホを確認し、追いかけて連絡してしまう", next: "res_anx_chase" },
-            { text: "わざと冷たくして、相手の気を引こうとする（抗議行動）", next: "res_anx_protest" },
-            { text: "相手を喜ばせようと、無理に明るく振る舞う", next: "res_anx_mask" },
-            { text: "「どうせ自分なんて」と殻に閉じこもる", next: "res_anx_withdraw" },
-            { text: "相手のSNSをチェックし、隠れた情報を探そうとする", next: "res_anx_monitor" },
-            { text: "不安のあまり、相手に強い言葉をぶつけてしまう", next: "res_anx_attack" }
-        ]
-    },
-    q_avd: {
-        text: "重荷や息苦しさを感じた時、あなたの心はどう動きますか？",
-        options: [
-            { text: "未読のまま放置し、自分の時間と空間を確保する", next: "res_avd_ignore" },
-            { text: "相手の欠点ばかり探して「もう冷めた」と思い込む", next: "res_avd_deval" },
-            { text: "徹底的に理屈で返し、感情のやり取りをシャットアウトする", next: "res_avd_logic" },
-            { text: "仕事や趣味を詰め込んで、考える時間を物理的に消す", next: "res_avd_work" },
-            { text: "相手を「重い人」と決めつけ、精神的な壁を作る", next: "res_avd_wall" },
-            { text: "表面上は合わせるが、内心では相手を軽蔑してしまう", next: "res_avd_cool" }
-        ]
-    },
-    q_fear: {
-        text: "「嫌われたかも」と恐怖を感じた時、どうなりがちですか？",
-        options: [
-            { text: "顔色を伺いすぎて、自分の意見が一切言えなくなる", next: "res_fear_fawn" },
-            { text: "傷つく前に自分から別れや距離を提示しようとする", next: "res_fear_pre" },
-            { text: "何も感じないように心を麻痺させる", next: "res_fear_numb" },
-            { text: "激しく甘えた直後に、怖くなって突き放してしまう", next: "res_fear_dis" },
-            { text: "相手が自分を騙しているのではないかと疑ってしまう", next: "res_fear_paranoid" },
-            { text: "自分を傷つけるような自暴自棄な思考になる", next: "res_fear_selfharm" }
-        ]
-    }
-    // (その他の設問q_perf, q_self, q_emotionも追加可能ですが、エラー回避のためフォールバック実装)
+start: {
+text: "どんな時に不安になる？",
+options: [
+{ text:"返信が遅い", next:"anx" },
+{ text:"距離を取りたくなる", next:"avd" },
+{ text:"嫌われた気がする", next:"fear" }
+]
+},
+
+anx: {
+text: "どう行動する？",
+options: [
+{ text:"追いLINE", next:"res_anx" }
+]
+},
+
+avd: {
+text: "どうする？",
+options: [
+{ text:"距離を置く", next:"res_avd" }
+]
+},
+
+fear: {
+text: "どうなる？",
+options: [
+{ text:"混乱する", next:"res_fear" }
+]
+}
 };
 
 const results = {
-    res_anx_chase: {
-        style: "不安型（Anxious）",
-        title: "過覚醒・チェイスモード",
-        analysis: "あなたは今、愛着システムが常にONの（<span class='term'>過覚醒</span>）状態にあります。連絡がないことを「生存の危機」と捉え、相手を追いかけることで安心を得ようとする衝動が強まっています。",
-        why: "過去の経験から「自分はいつか捨てられる」という（<span class='term'>見捨てられ不安</span>）が強く、遠距離という情報不足な環境がその不安を増幅させています。",
-        self: "スマホを置いて5分間の（<span class='term'>グラウンディング</span>）を。不安は「感情の波」であり、必ず引いていくことを自分に言い聞かせてください。",
-        comm: "アサーティブに、「君を疑っているわけではなく、今の私は不安になりやすいバイアスがかかっているだけなんだ」と自分の状態を実況中継してみましょう。",
-        terms: ["過覚醒", "見捨てられ不安", "グラウンディング"]
-    },
-    res_anx_protest: {
-        style: "不安型（Anxious-Protest）",
-        title: "抗議行動パターン",
-        analysis: "素直に寂しいと言えず、怒りや冷たい態度で相手を試す（<span class='term'>抗議行動</span>）が出ています。相手を困らせることで自分の重要性を確認しようとする心の動きです。",
-        why: "「普通に言っても届かない」という悲しみが根底にあり、激しい表現をしないと愛してもらえないという（<span class='term'>過剰活性化戦略</span>）を学習してしまった結果です。",
-        self: "怒りの下にある（<span class='term'>一次感情</span>）である「寂しさ」や「悲しみ」を、自分自身で認めてあげてください。怒りは自分を守るための盾に過ぎません。",
-        comm: "「さっきは冷たくしたけど、本当は寂しかっただけなんだ」と、自分の（<span class='term'>脆弱性</span>）をさらけ出すことが、本当の親密さへの鍵です。",
-        terms: ["抗議行動", "過剰活性化戦略", "一次感情", "脆弱性"]
-    },
-    res_avd_ignore: {
-        style: "回避型（Avoidant-Dismissing）",
-        title: "脱活性化・回避モード",
-        analysis: "親密さが深まることを「侵入」と感じ、無意識に心のシャッターを下ろす（<span class='term'>脱活性化戦略</span>）が働いています。自分のペースを乱されることへの恐怖が強い状態です。",
-        why: "自律性を尊重されなかった過去が、現在の（<span class='term'>回避性愛着</span>）を形成しています。他人を頼ることは弱さであるという信念があなたを孤独に守っています。",
-        self: "一人の時間を「逃げ」ではなく、二人でいるための（<span class='term'>セルフケア</span>）として肯定してください。自分が満たされないと、相手を受け入れる余裕は生まれません。",
-        comm: "「今は心を整理するために、1時間だけ一人の時間が欲しい。その後でまた話そう」と、具体的な（<span class='term'>タイムアウト</span>）を提案することで、相手の不安も防げます。",
-        terms: ["脱活性化戦略", "回避性愛着", "セルフケア", "タイムアウト"]
-    },
-    res_fear_dis: {
-        style: "恐れ・回避型（Disorganized）",
-        title: "混乱・矛盾の葛藤",
-        analysis: "近づきたいけれど怖い、という（<span class='term'>ダブルバインド</span>）の状態です。相手を安全基地だと思いたいのに、同時に脅威とも感じてしまい、行動がチグハグになりやすいです。",
-        why: "過去に信頼すべき対象から傷つけられた経験などが、（<span class='term'>未解決のトラウマ</span>）として心に残っている可能性があります。愛情表現が恐怖と結びついています。",
-        self: "自分の中に「甘えたい子供」と「警戒する兵士」の両方がいると想像してください。その両方を（<span class='term'>セルフコンパッション</span>）で優しく包み込む練習が必要です。",
-        comm: "「急に突き放したくなる時があるけど、それは怖くなっているだけで、君が嫌いなわけじゃないんだ」と、あらかじめ取扱説明書として伝えておきましょう。",
-        terms: ["ダブルバインド", "未解決のトラウマ", "セルフコンパッション"]
-    }
-    // その他の結果も同様に実装
+res_anx: {
+title:"不安型",
+analysis:"相手との繋がりを失うことへの強い恐怖があり、確認行動が増える状態。",
+why:"過去の経験や不安感が強く、安心材料を外に求めやすい。",
+self:"不安は一時的なものと理解し、自分の感情を落ち着かせる。",
+comm:"「寂しい」と素直に伝える。"
+},
+res_avd: {
+title:"回避型",
+analysis:"距離を取ることで安心しようとする傾向。",
+why:"他人に踏み込まれることへの警戒。",
+self:"距離を取る自分を否定しない。",
+comm:"「少し一人時間がほしい」と伝える。"
+},
+res_fear: {
+title:"恐れ型",
+analysis:"近づきたいと離れたいが同時に存在。",
+why:"過去の矛盾した経験。",
+self:"感情を整理する時間を持つ。",
+comm:"状態を正直に伝える。"
+}
 };
 
-const glossaryData = {
-    "過覚醒": "神経が過敏になり、常に不安や危険を察知しようとしている戦闘モードの状態。",
-    "見捨てられ不安": "大切な人が自分から離れていくことに対して抱く、強烈な恐怖や予期不安。",
-    "グラウンディング": "不安に飲み込まれた時、五感を使って意識を「今、ここ」の現実に引き戻す技法。",
-    "抗議行動": "愛情を確認するために、あえて相手を困らせたり突き放したりする行動。",
-    "過剰活性化戦略": "不安が強い時、しがみつきや監視などで相手をコントロールしようとする戦略。",
-    "一次感情": "怒りの下にある、悲しみや寂しさといった本来の素直な感情。",
-    "脆弱性": "自分が傷つく可能性のある「ありのままの弱さ」を、勇気を持ってさらけ出すこと。",
-    "脱活性化戦略": "親密さへの恐怖から、感情を麻痺させたり距離を置いたりする心の動き。",
-    "回避性愛着": "人との親密さを避け、独立を守ることで安心しようとする心のスタイル。",
-    "セルフケア": "自分自身の心身の状態を整えるために行う、休息や楽しみなどの活動。",
-    "タイムアウト": "冷静さを失いそうな時、意図的にその場を離れて冷静さを取り戻す時間を設けること。",
-    "ダブルバインド": "二つの矛盾した感情や命令の板挟みになり、どう動いても苦しい状態。",
-    "未解決のトラウマ": "過去の傷ついた経験が癒えず、現在の行動にまで無意識の影響を与えている状態。",
-    "セルフコンパッション": "自分自身の弱さや苦しみを、親しい友人を思いやるように優しく受け入れること。"
-};
+function showView(id){
+document.getElementById("quiz-view").style.display="none";
+document.getElementById("result-view").style.display="none";
+document.getElementById("assertive-view").style.display="none";
 
-function showView(viewId) {
-    document.getElementById('quiz-view').style.display = (viewId === 'quiz-view') ? 'block' : 'none';
-    document.getElementById('result-view').style.display = (viewId === 'result-view') ? 'block' : 'none';
-    document.getElementById('assertive-view').style.display = (viewId === 'assertive-view') ? 'block' : 'none';
-    window.scrollTo(0, 0);
+document.getElementById(id).style.display="block";
 }
 
-function renderQuestion(id) {
-    const q = flow[id] || flow['start'];
-    const container = document.getElementById('question-container');
-    container.innerHTML = `
-        <div class="question-box">
-            <p class="question-text">${q.text}</p>
-            <div class="options">
-                ${q.options.map(o => `
-                    <button onclick="${o.next.startsWith('res_') ? `renderResult('${o.next}')` : `renderQuestion('${o.next}')`}">
-                        ${o.text}
-                    </button>
-                `).join('')}
-            </div>
-        </div>
-    `;
+function renderQuestion(id){
+const q = flow[id];
+const container = document.getElementById("question-container");
+
+let html = "<h3>"+q.text+"</h3>";
+
+q.options.forEach(o=>{
+html += `<button onclick="goNext('${o.next}')">${o.text}</button>`;
+});
+
+container.innerHTML = html;
 }
 
-function renderResult(resId) {
-    // データがない場合のフォールバック
-    const res = results[resId] || results['res_anx_chase'];
-    const container = document.getElementById('result-view');
-    
-    let html = `
-        <div class="style-header">現在の傾向：${res.style}</div>
-        <h2 class="result-title">${res.title}</h2>
-        <div class="block"><h3>① 現状の深層心理分析</h3><p>${res.analysis}</p></div>
-        <div class="block"><h3>② なぜそうなっているのか（形成要因）</h3><p>${res.why}</p></div>
-        <div class="block"><h3>③ 自分の中で行うべき感情の処理</h3><p>${res.self}</p></div>
-        <div class="block"><h3>④ パートナーへの効果的な伝え方</h3><p>${res.comm}</p></div>
-        
-        <button class="cta-btn" onclick="showView('assertive-view')">アサーティブコミュニケーションを具体的に学ぶ</button>
-
-        <div class="glossary">
-            <h3>🔑 心理学用語の解説</h3>
-            ${res.terms.map(t => `<div class="glossary-item"><span class="glossary-term">${t}:</span> ${glossaryData[t] || ''}</div>`).join('')}
-        </div>
-
-        <div class="footer-msg">
-            りゅうとはずっと変わらずまさくんと一緒にいると決めてます。
-        </div>
-        <button class="cta-btn" style="background:#64748b; margin-top:40px;" onclick="location.reload()">最初からやり直す</button>
-    `;
-    
-    container.innerHTML = html;
-    showView('result-view');
+function goNext(next){
+if(results[next]){
+renderResult(next);
+}else{
+renderQuestion(next);
+}
 }
 
-// 初期実行
-renderQuestion('start');
+function renderResult(id){
+const r = results[id];
+const container = document.getElementById("result-view");
+
+container.innerHTML = `
+<h2>${r.title}</h2>
+
+<div class="block"><b>現状</b><br>${r.analysis}</div>
+<div class="block"><b>原因</b><br>${r.why}</div>
+<div class="block"><b>対処</b><br>${r.self}</div>
+<div class="block"><b>伝え方</b><br>${r.comm}</div>
+
+<button class="cta-btn" onclick="showView('assertive-view')">アサーティブを見る</button>
+
+<div style="margin-top:40px;text-align:center;font-weight:bold;">
+りゅうとはずっと変わらずまさくんと一緒にいると決めてます。
+</div>
+
+<button onclick="location.reload()">最初から</button>
+`;
+
+showView("result-view");
+}
+
+renderQuestion("start");
 </script>
 
 </body>
